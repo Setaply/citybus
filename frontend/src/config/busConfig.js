@@ -1,5 +1,5 @@
 const config = {
-    busRoute : [
+    busRoute_LEGACY : [
         // Segment 1
         [9.766263179078805, 50.66432224964993],
         [9.765981873093892, 50.66403589137258],
@@ -371,3 +371,4 @@ const config = {
 }
 
 export default config
+

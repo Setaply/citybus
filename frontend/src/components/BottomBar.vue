@@ -1,7 +1,7 @@
 <template>
   <footer class="bottombar">
     <div class="footer-left">
-      <span>&copy; {{ currentYear }} setaply.com</span>
+      <span>&copy; {{ currentYear }} Stadtwerke Hünfeld</span>
     </div>
 
     <div class="footer-center">
@@ -37,15 +37,12 @@ import { Icon } from '@iconify/vue'
 const currentYear = new Date().getFullYear()
 
 const navLinks = [
-  { text: 'Privacy', href: '/privacy' },
-  { text: 'Terms', href: '/terms' },
+  { text: 'Impressum', href: 'https://www.stadtwerke-huenfeld.de/impressum/' },
+  { text: 'Datenschutz', href: 'https://www.stadtwerke-huenfeld.de/datenschutz/' },
 ]
 
 const socialIcons = [
-  { name: 'mdi:email', href: 'mailto:contact.setaply@gmail.com' },
-  { name: 'mdi:twitter', href: 'https://x.com/seta_ply' },
-  { name: 'mdi:linkedin', href: 'https://linkedin.com/company/setaply' },
-  { name: 'mdi:instagram', href: 'https://instagram.com/seta.ply' },
+  { name: 'mdi:email', href: 'mailto:vertrieb@stadtwerke-huenfeld.de' },
 ]
 </script>
 

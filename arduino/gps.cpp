@@ -10,6 +10,7 @@ const int SIM900POWERPIN = 5; // SIM900 Power On Button
 const char* apn = "internet.telekom";
 const char* baseUrl = "http://217.154.87.99:3000/post-gps";
 const unsigned long gpsDelay = 1000; // Update frequency in ms
+const int busID = 1;
  
 // Function declarations
 void setupGPRS();
@@ -59,7 +60,7 @@ void setupGPRS() {
 }
  
 void sendGPSData(double latitude, double longitude) {
-  String urlWithParams = String(baseUrl) + "?latitude=" + String(latitude, 6) + "&longitude=" + String(longitude, 6);
+  String urlWithParams = String(baseUrl) + "?latitude=" + String(latitude, 6) + "&longitude=" + String(longitude, 6) + "&id=" + String(id, 6);
  
   sendCommand("AT+HTTPINIT");
   sendCommand("AT+HTTPPARA=\"CID\",1");
