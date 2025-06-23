@@ -86,6 +86,8 @@ onMounted(async () => {
       const res = await fetch(apifConfig['get-gps'])
       const buses = await res.json()
 
+      console.log(buses)
+
       buses.forEach(({ id, latitude, longitude }) => {
         const existing = busPositions.find(b => b.id === id)
         const coords = fromLonLat([longitude, latitude])

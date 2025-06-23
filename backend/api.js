@@ -17,7 +17,7 @@ api.post('/post-gps', async (req, res) => {
 
   const lon = parseFloat(req.query.longitude);
   const lat = parseFloat(req.query.latitude);
-  const id = parseInt(req.query.id);
+  const id = parseInt(req.query.id) || 1;
 
   if (isNaN(lon) || isNaN(lat) || isNaN(id)) {
     return res.json({ status: "Error: Invalid Data" });
