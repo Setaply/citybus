@@ -18,10 +18,12 @@ import Point from 'ol/geom/Point'
 import Style from 'ol/style/Style'
 import Stroke from 'ol/style/Stroke'
 import Icon from 'ol/style/Icon'
-import { fromLonLat } from 'ol/proj'
+import { fromLonLat, toLonLat } from 'ol/proj'
 import GeoJSON from 'ol/format/GeoJSON'
 import mapGeoJsonUrl from '@/assets/map.geojson?url'
 import apifConfig from "../config/apiConfig"
+import overviewState from "../state/overviewState";
+import { getDistance } from 'ol/sphere';
 
 const map = ref(null)
 const mapContainer = ref(null)
@@ -36,6 +38,7 @@ const userStyle = new Style({
     scale: 1
   })
 })
+
 userMarker.setStyle(userStyle)
 
 const busPositions = []
@@ -80,13 +83,26 @@ onMounted(async () => {
       { enableHighAccuracy: true, maximumAge: 0, timeout: 15000 }
     )
   }
+  
+  const updateDistanceToNextBus = (busLon, busLat) => {
+    const userCoords = userMarker.getGeometry().getCoordinates(); // [x, y] in map projection
+    const userLonLat = toLonLat(userCoords);                      // Convert to [lon, lat]
+    const busLonLat = [busLon, busLat];                           // Already in [lon, lat]
+
+    const distanceInMeters = getDistance(userLonLat, busLonLat); // Now correct units
+
+    overviewState.distanceToNextBus.value = `${Math.round(distanceInMeters)} m`;
+  };
 
   setInterval(async () => {
     try {
       const res = await fetch(apifConfig['get-gps'])
-      const buses = await res.json()
+      const buses = await res.json() || []
 
       console.log(buses)
+
+      overviewState.lastUpdate.value = new Date().toLocaleTimeString('de-DE');
+      overviewState.busActive.value = buses.length;
 
       buses.forEach(({ id, latitude, longitude }) => {
         const existing = busPositions.find(b => b.id === id)
@@ -96,6 +112,7 @@ onMounted(async () => {
           existing.feature.getGeometry().setCoordinates(coords)
           existing.latitude = latitude
           existing.longitude = longitude
+          updateDistanceToNextBus(longitude, latitude)
         } else {
           const feature = new Feature(new Point(coords))
           feature.setStyle(new Style({
@@ -104,6 +121,7 @@ onMounted(async () => {
               scale: 1
             })
           }))
+          updateDistanceToNextBus(longitude, latitude)
           dynamicSource.addFeature(feature)
           busPositions.push({ id, latitude, longitude, feature })
         }

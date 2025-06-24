@@ -4,10 +4,10 @@
          <el-card class="info-panel">
             <h3>Übersicht</h3>
             <el-descriptions :column="2" border>
-                <el-descriptions-item label="Busse Insgesamt">12</el-descriptions-item>
-                <el-descriptions-item label="Aktive Busse">9</el-descriptions-item>
-                <el-descriptions-item label="Nächster Bus (m)">135</el-descriptions-item>
-                <el-descriptions-item label="Letzte Aktualisierung">12:43:22</el-descriptions-item>
+                <el-descriptions-item label="Busse Insgesamt">{{ overviewState.busTotal.value }}</el-descriptions-item>
+                <el-descriptions-item label="Aktive Busse">{{ overviewState.busActive.value }}</el-descriptions-item>
+                <el-descriptions-item label="Nächster Bus (m)">{{ overviewState.distanceToNextBus.value }}</el-descriptions-item>
+                <el-descriptions-item label="Letzte Aktualisierung">{{ overviewState.lastUpdate.value }}</el-descriptions-item>
             </el-descriptions>
         </el-card>
     </div>
@@ -15,6 +15,7 @@
 
 <script setup>
 import Map from '../components/Map.vue';
+import overviewState from "../state/overviewState"
 </script>
 
 <style scoped>
