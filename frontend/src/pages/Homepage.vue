@@ -1,21 +1,15 @@
 <template >
     <div class="homepage-container">
         <Map></Map>
-         <el-card class="info-panel">
-            <h3>Übersicht</h3>
-            <el-descriptions :column="2" border>
-                <el-descriptions-item label="Busse Insgesamt">{{ overviewState.busTotal.value }}</el-descriptions-item>
-                <el-descriptions-item label="Aktive Busse">{{ overviewState.busActive.value }}</el-descriptions-item>
-                <el-descriptions-item label="Nächster Bus (m)">{{ overviewState.distanceToNextBus.value }}</el-descriptions-item>
-                <el-descriptions-item label="Letzte Aktualisierung">{{ overviewState.lastUpdate.value }}</el-descriptions-item>
-            </el-descriptions>
-        </el-card>
+        <el-link href="https://www.stadtwerke-huenfeld.de/verkehr/" :icon="InfoFilled" type="primary" style="font-size: large;" target="_blank">Offizielle Karte</el-link>
     </div>
 </template>
 
 <script setup>
 import Map from '../components/Map.vue';
 import overviewState from "../state/overviewState"
+import { InfoFilled } from '@element-plus/icons-vue'
+
 </script>
 
 <style scoped>
@@ -27,22 +21,5 @@ import overviewState from "../state/overviewState"
   color: #0168B3;
   gap: 2rem;
   padding: 2rem;
-}
-
-.info-panel {
-  color: #0168B3;
-  width: 90%;
-  max-width: 800px;
-  background-color: rgba(255, 255, 255, 0.6); /* semi-transparent white */
-  border-radius: 12px;
-  padding: 1.5rem;
-  backdrop-filter: blur(8px); /* optional: gives a frosted glass effect */
-  border: 1px solid rgba(255, 255, 255, 0.3); /* soft border */
-  text-align: center;
-  font-size: x-large;
-}
-
-.info-panel * {
-  color: #0168B3 !important;
 }
 </style>

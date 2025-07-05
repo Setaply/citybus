@@ -12,7 +12,7 @@ api.get('/get-gps', async (req, res) => {
   res.json(positions);
 });
 
-api.post('/post-gps', async (req, res) => {
+api.get('/post-gps', async (req, res) => {
   console.log(new Date().toISOString(), "POST Request");
 
   const lon = parseFloat(req.query.longitude);

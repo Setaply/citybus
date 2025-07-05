@@ -48,8 +48,8 @@ const socialIcons = [
 
 <style scoped>
 .bottombar {
+  position: relative; /* Important for absolute centering */
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   background-color: #0168B3;
@@ -58,9 +58,15 @@ const socialIcons = [
   font-size: 0.9rem;
   border-top: 1px solid #009EDF;
 }
+.footer-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1rem;
+}
 
 .footer-left,
-.footer-center,
 .footer-right {
   display: flex;
   align-items: center;

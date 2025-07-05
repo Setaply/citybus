@@ -78,14 +78,36 @@ void sendCommand(const String& command) {
 }
  
 void powerOnSIM900() {
+  sim900.println("AT");
+  delay(500);
+  
+  bool isOn = false;
+  unsigned long start = millis();
+  while (millis() - start < 2000) {
+    if (sim900.available()) {
+      String response = sim900.readString();
+      if (response.indexOf("OK") != -1) {
+        isOn = true;
+        break;
+      }
+    }
+  }
+
+  if (isOn) {
+    Serial.println("SIM900 already on.");
+    return;
+  }
+
+  Serial.println("Powering on SIM900...");
   pinMode(SIM900POWERPIN, OUTPUT);
-  digitalWrite(SIM900POWERPIN,LOW);
+  digitalWrite(SIM900POWERPIN, LOW);
   delay(1000);
-  digitalWrite(SIM900POWERPIN,HIGH);
+  digitalWrite(SIM900POWERPIN, HIGH);
   delay(2000);
-  digitalWrite(SIM900POWERPIN,LOW);
+  digitalWrite(SIM900POWERPIN, LOW);
   delay(3000);
 }
+
  
 void waitForResponse(unsigned long timeout) {
   unsigned long start = millis();
